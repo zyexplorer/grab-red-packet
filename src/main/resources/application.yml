@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+  compression:
+    enabled: true
+  tomcat:
+    max-swallow-size: -1
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+  servlet:
+    context-path: /
+
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/cloudpivot                 #配置数据库地址
+    username: root                                                           #配置数据库用户名
+    password: test123456
+    hikari:
+      maximum-pool-size: 150                                                 #根据系统并发用户数
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 1024
+        prepStmtCacheSqlLimit: 4096
+        useServerPrepStmts: true
+    jpa:
+      hibernate:
+        ddl-auto: update
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      database: MYSQL
+      show-sql: true
+      properties:
+        hibernate.id.new_generator_mappings: true
+        hibernate.cache.use_second_level_cache: false
+        hibernate.cache.use_query_cache: false
+        hibernate.generate_statistics: false
+        hibernate.enable_lazy_load_no_trans: false
+        javax.persistence.sharedCache.mode: NONE
+      open-in-view: true
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password: H3yuncom
